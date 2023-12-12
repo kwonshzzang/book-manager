@@ -1,5 +1,8 @@
 package kr.co.kwonshzzang.bookmanager.bookmanager.domain;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.Id;
 import lombok.*;
 
 import java.time.LocalDateTime;
@@ -13,7 +16,12 @@ import java.time.LocalDateTime;
 @RequiredArgsConstructor
 @Data
 @Builder
-public class User {
+@Entity
+public class Member {
+    @Id
+    @GeneratedValue
+    private Long id;
+
     @NonNull
     private String name;
     @NonNull
