@@ -6,10 +6,13 @@ import org.assertj.core.util.Lists;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.*;
 
 import java.time.LocalDateTime;
 import java.util.List;
+
+import static org.springframework.data.domain.ExampleMatcher.GenericPropertyMatchers.contains;
+import static org.springframework.data.domain.ExampleMatcher.GenericPropertyMatchers.endsWith;
 
 @SpringBootTest
 class MemberRepositoryTests {
@@ -18,7 +21,7 @@ class MemberRepositoryTests {
 
     @Test
 //    @Transactional
-    void crudTest() { //create, read, update, delete
+    void crudTest1() { //create, read, update, delete
        System.out.println("============================================================================================================================");
        List<Member> members1 = memberRepository.findAll();
        members1.forEach(System.out::println);
@@ -47,7 +50,81 @@ class MemberRepositoryTests {
 
         Member member3 = memberRepository.findById(1L).orElse(null);
         System.out.println(member3);
+    }
 
+    @Test
+    void crudTest2() {
+        System.out.println("============================================================================================================================");
+        memberRepository.save(Member.builder().name("new martin").email("newmartin@fastcampus.com").build());
+        memberRepository.flush();
+        memberRepository.findAll().forEach(System.out::println);
+
+        System.out.println("============================================================================================================================");
+        memberRepository.saveAndFlush(Member.builder().name("new martin").email("newmartin@fastcampus.com").build());
+        memberRepository.findAll().forEach(System.out::println);
+
+        System.out.println("============================================================================================================================");
+        long count = memberRepository.count();
+        System.out.println("count : " + count);
+
+        System.out.println("============================================================================================================================");
+        boolean exists = memberRepository.existsById(1L);
+        System.out.println("exists : " + exists);
+
+        System.out.println("============================================================================================================================");
+        memberRepository.delete(memberRepository.findById(1L).orElseThrow(RuntimeException::new));
+        memberRepository.findAll().forEach(System.out::println);
+
+        System.out.println("============================================================================================================================");
+        memberRepository.deleteById(2L);
+        memberRepository.findAll().forEach(System.out::println);
+
+        System.out.println("============================================================================================================================");
+//        memberRepository.deleteAll();
+        memberRepository.deleteAll(memberRepository.findAllById(Lists.newArrayList(2L, 3L)));
+        memberRepository.findAll().forEach(System.out::println);
+
+        System.out.println("============================================================================================================================");
+        memberRepository.deleteAllInBatch(memberRepository.findAllById(Lists.newArrayList(4L, 5L)));
+        memberRepository.findAll().forEach(System.out::println);
+
+        System.out.println("============================================================================================================================");
+        memberRepository.deleteAllInBatch();
+        memberRepository.findAll().forEach(System.out::println);
+    }
+
+    @Test
+    void crudTest3() {
+        System.out.println("============================================================================================================================");
+        memberRepository.findAll().forEach(System.out::println);
+        Page<Member> members = memberRepository.findAll(PageRequest.of(1, 3));
+
+        System.out.println(members);
+        System.out.println("totalElements : " + members.getTotalElements());
+        System.out.println("totalPages : " + members.getTotalPages());
+        System.out.println("numberOfElements : " + members.getNumberOfElements());
+        System.out.println("sort : " + members.getSort());
+        System.out.println("size : " + members.getSize());
+        members.getContent().forEach(System.out::println);
+
+        System.out.println("============================================================================================================================");
+        ExampleMatcher matcher = ExampleMatcher.matching()
+                .withIgnorePaths("name")
+                .withMatcher("email", endsWith());
+
+        Example<Member> example = Example.of(Member.builder().name("ma").email("fastcampus.com").build(), matcher);
+        memberRepository.findAll(example).forEach(System.out::println);
+
+        System.out.println("============================================================================================================================");
+        memberRepository.findAll(Example.of(Member.builder().name("martin").email("martin@fastcampus.com").build()))
+                .forEach(System.out::println);
+
+        System.out.println("============================================================================================================================");
+        Member member = new Member();
+        member.setEmail("slow");
+        ExampleMatcher matcher1 = ExampleMatcher.matching()
+                .withMatcher("email", contains());
+        memberRepository.findAll(Example.of(member, matcher1)).forEach(System.out::println);
 
     }
 
