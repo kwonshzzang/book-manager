@@ -125,7 +125,15 @@ class MemberRepositoryTests {
         ExampleMatcher matcher1 = ExampleMatcher.matching()
                 .withMatcher("email", contains());
         memberRepository.findAll(Example.of(member, matcher1)).forEach(System.out::println);
+    }
 
+    @Test
+    void crudTest4() {
+        memberRepository.save(Member.builder().name("david").email("david@fastcampus").build());
+
+        Member member = memberRepository.findById(1L).orElseThrow(RuntimeException::new);
+        member.setEmail("martin-updated@fastcampus.com");
+        memberRepository.save(member);
     }
 
 }
