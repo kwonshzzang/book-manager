@@ -130,10 +130,32 @@ class MemberRepositoryTests {
     @Test
     void crudTest4() {
         memberRepository.save(Member.builder().name("david").email("david@fastcampus").build());
-
         Member member = memberRepository.findById(1L).orElseThrow(RuntimeException::new);
         member.setEmail("martin-updated@fastcampus.com");
         memberRepository.save(member);
+    }
+
+    @Test
+    void queryMethod1() {
+        System.out.println("============================================================================================================================");
+//        System.out.println(memberRepository.findByName("martin"));
+        System.out.println(memberRepository.findByName("dennis"));
+
+        System.out.println("============================================================================================================================");
+        System.out.println("findByEmail : " + memberRepository.findByEmail("martin@fastcampus.com"));
+        System.out.println("getByEmail : " + memberRepository.getByEmail("martin@fastcampus.com"));
+        System.out.println("readByEmail : " + memberRepository.readByEmail("martin@fastcampus.com"));
+        System.out.println("queryByEmail : " + memberRepository.queryByEmail("martin@fastcampus.com"));
+        System.out.println("searchByEmail : " + memberRepository.searchByEmail("martin@fastcampus.com"));
+        System.out.println("streamByEmail : " + memberRepository.streamByEmail("martin@fastcampus.com"));
+        System.out.println("findMemberByEmail : " + memberRepository.findMemberByEmail("martin@fastcampus.com"));
+
+        System.out.println("============================================================================================================================");
+        System.out.println("findFirst1ByName : " + memberRepository.findFirst1ByName("martin"));
+        System.out.println("findTop1ByName : " + memberRepository.findTop1ByName("martin"));
+
+
+
     }
 
 }
