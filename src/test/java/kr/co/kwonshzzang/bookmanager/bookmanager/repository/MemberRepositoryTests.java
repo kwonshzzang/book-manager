@@ -153,9 +153,22 @@ class MemberRepositoryTests {
         System.out.println("============================================================================================================================");
         System.out.println("findFirst1ByName : " + memberRepository.findFirst1ByName("martin"));
         System.out.println("findTop1ByName : " + memberRepository.findTop1ByName("martin"));
+    }
 
-
-
+    @Test
+    void queryMethod2() {
+        System.out.println("============================================================================================================================");
+        System.out.println("findByEmailAndName : " + memberRepository.findByEmailAndName("martin@fastcampus.com", "martin"));
+        System.out.println("findByEmailOrName : " + memberRepository.findByEmailOrName("martin@fastcampus.com", "martin"));
+        System.out.println("============================================================================================================================");
+        System.out.println("findByCreatedAtAfter : " + memberRepository.findByCreatedAtAfter(LocalDateTime.now().minusDays(1L)));
+        System.out.println("findByIdAfter : " + memberRepository.findByIdAfter(4L));
+        System.out.println("============================================================================================================================");
+        System.out.println("findByCreatedAtGreaterThan : " + memberRepository.findByCreatedAtGreaterThan(LocalDateTime.now().minusDays(1L)));
+        System.out.println("findByCreatedAtGreaterThanEqual : " + memberRepository.findByCreatedAtGreaterThanEqual(LocalDateTime.now().minusDays(1L)));
+        System.out.println("findByCreatedAtBetween : " + memberRepository.findByCreatedAtBetween(LocalDateTime.now().minusDays(1L), LocalDateTime.now().plusDays(1L)));
+        System.out.println("findByIdBetween : " + memberRepository.findByIdBetween(3L, 5L));
+        System.out.println("findByIdGreaterThanEqualAndIdLessThanEqual : " + memberRepository.findByIdGreaterThanEqualAndIdLessThanEqual(3L, 5L));
     }
 
 }
