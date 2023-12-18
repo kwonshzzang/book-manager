@@ -10,6 +10,9 @@ import java.util.List;
 @Repository
 public interface MemberRepository extends JpaRepository<Member, Long> {
     List<Member> findByName(String name);
+    List<Member> findByNameIs(String name);
+    List<Member> findByNameEquals(String name);
+
 
     Member findByEmail(String email);
     Member getByEmail(String email);
@@ -34,6 +37,16 @@ public interface MemberRepository extends JpaRepository<Member, Long> {
     List<Member> findByCreatedAtBetween(LocalDateTime yesterday, LocalDateTime tomorrow);
     List<Member> findByIdBetween(Long id1, Long id);
     List<Member> findByIdGreaterThanEqualAndIdLessThanEqual(Long id1, Long id2);
+
+    List<Member> findByIdIsNotNull();
+    List<Member> findByNameIn(List<String> names);
+    List<Member> findByNameStartingWith(String name);
+    List<Member> findByNameEndingWith(String name);
+    List<Member> findByNameContains(String name);
+    List<Member> findByNameLike(String name);
+
+
+
 
 
 

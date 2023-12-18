@@ -1,9 +1,6 @@
 package kr.co.kwonshzzang.bookmanager.bookmanager.domain;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.*;
 
 import java.time.LocalDateTime;
@@ -29,4 +26,5 @@ public class Member {
     private String email;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
+
 }

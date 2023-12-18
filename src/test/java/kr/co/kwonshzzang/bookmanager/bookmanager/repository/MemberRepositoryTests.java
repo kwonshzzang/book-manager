@@ -171,4 +171,23 @@ class MemberRepositoryTests {
         System.out.println("findByIdGreaterThanEqualAndIdLessThanEqual : " + memberRepository.findByIdGreaterThanEqualAndIdLessThanEqual(3L, 5L));
     }
 
+    @Test
+    void queryMethod3() {
+        System.out.println("============================================================================================================================");
+        System.out.println("findByIdIsNotNull : " + memberRepository.findByIdIsNotNull());
+        System.out.println("findByNameIn : " + memberRepository.findByNameIn(Lists.newArrayList("martin", "dennis")));
+        System.out.println("findByNameStartingWith : " + memberRepository.findByNameStartingWith("mar"));
+        System.out.println("findByNameEndingWith : " + memberRepository.findByNameEndingWith("tin"));
+        System.out.println("findByNameContains : " + memberRepository.findByNameContains("art"));
+        System.out.println("findByNameLike : " + memberRepository.findByNameLike("mar%"));
+        System.out.println("findByNameLike : " + memberRepository.findByNameLike("%tin"));
+        System.out.println("findByNameLike : " + memberRepository.findByNameLike("%art%"));
+        System.out.println("findByNameLike : " + memberRepository.findByNameLike("%art%"));
+        System.out.println("findByNameIs : " + memberRepository.findByNameIs("martin"));
+        System.out.println("findByNameEquals : " + memberRepository.findByNameEquals("martin"));
+
+
+
+    }
+
 }
