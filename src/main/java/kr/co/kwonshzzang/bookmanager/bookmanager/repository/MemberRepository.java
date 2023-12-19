@@ -1,6 +1,7 @@
 package kr.co.kwonshzzang.bookmanager.bookmanager.repository;
 
 import kr.co.kwonshzzang.bookmanager.bookmanager.domain.Member;
+import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
@@ -44,6 +45,14 @@ public interface MemberRepository extends JpaRepository<Member, Long> {
     List<Member> findByNameEndingWith(String name);
     List<Member> findByNameContains(String name);
     List<Member> findByNameLike(String name);
+
+    Member findTop1ByNameOrderByIdDesc(String name);
+    Member findTopByNameOrderByIdDesc(String name);
+    List<Member> findFirstByNameOrderByIdDescEmailAsc(String name);
+    List<Member> findFirstByName(String name, Sort sort);
+
+
+
 
 
 

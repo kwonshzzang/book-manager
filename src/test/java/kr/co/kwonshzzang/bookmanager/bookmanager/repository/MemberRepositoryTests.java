@@ -185,9 +185,20 @@ class MemberRepositoryTests {
         System.out.println("findByNameLike : " + memberRepository.findByNameLike("%art%"));
         System.out.println("findByNameIs : " + memberRepository.findByNameIs("martin"));
         System.out.println("findByNameEquals : " + memberRepository.findByNameEquals("martin"));
+    }
 
-
-
+    @Test
+    void queryMethod4() {
+        System.out.println("============================================================================================================================");
+        System.out.println("findTop1ByName : " + memberRepository.findTop1ByName("martin"));
+        System.out.println("============================================================================================================================");
+        System.out.println("findTop1ByNameOrderByIdDesc : " + memberRepository.findTop1ByNameOrderByIdDesc("martin"));
+        System.out.println("findTopByNameOrderByIdDesc : " + memberRepository.findTopByNameOrderByIdDesc("martin"));
+        System.out.println("============================================================================================================================");
+        System.out.println("findFirstByNameOrderByIdDescEmailAsc : " + memberRepository.findFirstByNameOrderByIdDescEmailAsc("martin"));
+        System.out.println("============================================================================================================================");
+        System.out.println("findFirstByName : " + memberRepository.findFirstByName("martin", Sort.by(Sort.Order.desc("id"))));
+        System.out.println("findFirstByName : " + memberRepository.findFirstByName("martin", Sort.by(Sort.Order.desc("id"), Sort.Order.asc("email"))));
     }
 
 }
