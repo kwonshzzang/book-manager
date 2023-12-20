@@ -201,4 +201,10 @@ class MemberRepositoryTests {
         System.out.println("findFirstByName : " + memberRepository.findFirstByName("martin", Sort.by(Sort.Order.desc("id"), Sort.Order.asc("email"))));
     }
 
+    @Test
+    void pagingMethod() {
+        System.out.println("============================================================================================================================");
+        System.out.println("findByNameWithPaging : " + memberRepository.findByName("martin", PageRequest.of(1, 1, Sort.by(Sort.Order.desc("id")))).getContent());
+    }
+
 }
