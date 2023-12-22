@@ -15,7 +15,7 @@ class MemberTests {
 
         System.out.println(member);
 
-        Member member1 = new Member(null,"martin", "martin@fastcampus.com", LocalDateTime.now(), LocalDateTime.now());
+        Member member1 = new Member(null,"martin", "martin@fastcampus.com", Gender.MALE, LocalDateTime.now(), LocalDateTime.now());
         System.out.println(member1);
 
 

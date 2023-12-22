@@ -1,6 +1,7 @@
 package kr.co.kwonshzzang.bookmanager.bookmanager.repository;
 
 import jakarta.transaction.Transactional;
+import kr.co.kwonshzzang.bookmanager.bookmanager.domain.Gender;
 import kr.co.kwonshzzang.bookmanager.bookmanager.domain.Member;
 import org.assertj.core.util.Lists;
 import org.junit.jupiter.api.Test;
@@ -205,6 +206,36 @@ class MemberRepositoryTests {
     void pagingMethod() {
         System.out.println("============================================================================================================================");
         System.out.println("findByNameWithPaging : " + memberRepository.findByName("martin", PageRequest.of(1, 1, Sort.by(Sort.Order.desc("id")))).getContent());
+    }
+
+    @Test
+    void insertAndUpdate() {
+        System.out.println("============================================================================================================================");
+        Member member = new Member();
+
+        member.setName("martin");
+        member.setEmail("martin@fastcampus.com");
+
+        memberRepository.save(member);
+
+        System.out.println("============================================================================================================================");
+        Member member2 = memberRepository.findById(1L).orElseThrow(RuntimeException::new);
+        member2.setName("marrrrrrtin");
+
+        memberRepository.save(member2);
+    }
+
+    @Test
+    void enumTest() {
+        Member member = memberRepository.findById(1L).orElseThrow(RuntimeException::new);
+        member.setGender(Gender.MALE);
+
+        memberRepository.save(member);
+
+        System.out.println("============================================================================================================================");
+        memberRepository.findAll().forEach(System.out::println);
+        System.out.println("============================================================================================================================");
+        System.out.println(memberRepository.findRowRecord().get("gender"));
     }
 
 }

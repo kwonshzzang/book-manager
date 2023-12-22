@@ -15,6 +15,7 @@ import java.time.LocalDateTime;
 @Data
 @Builder
 @Entity
+//@Table(name = "member", indexes = {@Index(columnList = "name")}, uniqueConstraints = {@UniqueConstraint(columnNames = "email")})
 public class Member {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -23,8 +24,21 @@ public class Member {
     @NonNull
     private String name;
     @NonNull
+    //@Column(unique = true)
     private String email;
+
+    @Enumerated(value = EnumType.STRING)
+    private Gender gender;
+
+    //@Column(name = "crtdat")
+    //@Column(nullable = false)
+    //@Column(updatable = false)
     private LocalDateTime createdAt;
+
+    //@Column(insertable = false)
     private LocalDateTime updatedAt;
+
+//    @Transient
+//    private String testData;
 
 }
