@@ -238,4 +238,41 @@ class MemberRepositoryTests {
         System.out.println(memberRepository.findRowRecord().get("gender"));
     }
 
+    @Test
+    void listenerTest() {
+        System.out.println("============================================================================================================================");
+        Member member = Member.builder().name("martin").email("martin2@fastcampus.com").build();
+        memberRepository.save(member);
+
+        System.out.println("============================================================================================================================");
+        Member member2 = memberRepository.findById(1L).orElseThrow(RuntimeException::new);
+        member2.setName("marrrrrtin");
+        memberRepository.save(member2);
+
+        System.out.println("============================================================================================================================");
+        memberRepository.deleteById(4L);
+    }
+
+    @Test
+    void prePersistTest() {
+        System.out.println("============================================================================================================================");
+//        Member member = Member.builder().name("martin").email("martin2@fastcampus.com").createdAt(LocalDateTime.now()).updatedAt(LocalDateTime.now()).build();
+        Member member = Member.builder().name("martin").email("martin2@fastcampus.com").build();
+        memberRepository.save(member);
+        memberRepository.save(member);
+        System.out.println(memberRepository.findByEmail("martin2@fastcampus.com"));
+    }
+
+    @Test
+    void preUpdateTest() {
+        Member member = memberRepository.findById(1L).orElseThrow(RuntimeException::new);
+        System.out.println("as-is : " + member);
+
+        member.setName("martin222");
+        memberRepository.save(member);
+
+        System.out.println("to-be : " + memberRepository.findAll().get(0));
+
+    }
+
 }

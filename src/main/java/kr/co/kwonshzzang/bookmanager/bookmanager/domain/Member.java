@@ -15,8 +15,9 @@ import java.time.LocalDateTime;
 @Data
 @Builder
 @Entity
+@EntityListeners(value = MyEntityListener.class)
 //@Table(name = "member", indexes = {@Index(columnList = "name")}, uniqueConstraints = {@UniqueConstraint(columnNames = "email")})
-public class Member {
+public class Member implements Auditable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -38,7 +39,53 @@ public class Member {
     //@Column(insertable = false)
     private LocalDateTime updatedAt;
 
+//    @PrePersist
+//    public void prePersist() {
+//        this.createdAt = LocalDateTime.now();
+//        this.updatedAt = LocalDateTime.now();
+//    }
+//
+//    @PreUpdate
+//    public void postUpdate() {
+//        this.updatedAt = LocalDateTime.now();
+//    }
+
 //    @Transient
 //    private String testData;
+
+//    @PrePersist
+//    public void prePersist() {
+//        System.out.println(">>> prePersist....");
+//    }
+//
+//    @PostPersist
+//    public void postPersist() {
+//        System.out.println(">>> postPersist....");
+//    }
+//
+//    @PreUpdate
+//    public void preUpdate() {
+//        System.out.println(">>> preUpdate....");
+//    }
+//
+//    @PostUpdate
+//    public void postUpdate() {
+//        System.out.println(">>> postUpdate...");
+//    }
+//
+//    @PreRemove
+//    public void preRemove() {
+//        System.out.println(">>> preRemove....");
+//    }
+//
+//    @PostRemove
+//    public void postRemove() {
+//        System.out.println(">>> postRemove....");
+//    }
+//
+//    @PostLoad
+//    public void postLoad() {
+//        System.out.println(">>> postLoad....");
+//    }
 
 }
