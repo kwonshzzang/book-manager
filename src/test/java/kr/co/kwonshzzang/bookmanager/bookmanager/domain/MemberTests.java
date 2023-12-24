@@ -15,7 +15,7 @@ class MemberTests {
 
         System.out.println(member);
 
-        Member member1 = new Member(null,"martin", "martin@fastcampus.com", Gender.MALE, LocalDateTime.now(), LocalDateTime.now());
+        Member member1 = new Member(null,"martin", "martin@fastcampus.com", Gender.MALE);
         System.out.println(member1);
 
 
@@ -25,8 +25,6 @@ class MemberTests {
         Member member3 = Member.builder()
                 .name("martin")
                 .email("martin@fastcampus.com")
-                .createdAt(LocalDateTime.now())
-                .updatedAt(LocalDateTime.now())
                 .build();
         System.out.println(member3);
     }

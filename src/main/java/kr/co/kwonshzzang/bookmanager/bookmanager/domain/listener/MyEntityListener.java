@@ -1,7 +1,8 @@
-package kr.co.kwonshzzang.bookmanager.bookmanager.domain;
+package kr.co.kwonshzzang.bookmanager.bookmanager.domain.listener;
 
 import jakarta.persistence.PrePersist;
 import jakarta.persistence.PreUpdate;
+import kr.co.kwonshzzang.bookmanager.bookmanager.domain.listener.Auditable;
 
 import java.time.LocalDateTime;
 

@@ -19,6 +19,8 @@ import static org.springframework.data.domain.ExampleMatcher.GenericPropertyMatc
 class MemberRepositoryTests {
     @Autowired
     private MemberRepository memberRepository;
+    @Autowired
+    private MemberHistoryRepository memberHistoryRepository;
 
     @Test
 //    @Transactional
@@ -272,6 +274,22 @@ class MemberRepositoryTests {
         memberRepository.save(member);
 
         System.out.println("to-be : " + memberRepository.findAll().get(0));
+
+    }
+
+    @Test
+    void memberHistoryTest() {
+        Member member = Member.builder()
+                .email("martin-new@fastcampus.com")
+                .name("martin-new")
+                .build();
+
+        memberRepository.save(member);
+
+        member.setName("martin-new-new");
+        memberRepository.save(member);
+
+        memberHistoryRepository.findAll().forEach(System.out::println);
 
     }
 

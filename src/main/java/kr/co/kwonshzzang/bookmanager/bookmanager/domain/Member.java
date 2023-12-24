@@ -1,23 +1,25 @@
 package kr.co.kwonshzzang.bookmanager.bookmanager.domain;
 
 import jakarta.persistence.*;
+import kr.co.kwonshzzang.bookmanager.bookmanager.domain.listener.MemberEntityListener;
 import lombok.*;
-
-import java.time.LocalDateTime;
 
 //@Getter
 //@Setter
 //@ToString
 //@EqualsAndHashCode
+
 @NoArgsConstructor
 @AllArgsConstructor
 @RequiredArgsConstructor
 @Data
+@EqualsAndHashCode(callSuper = true)
+@ToString(callSuper = true)
 @Builder
 @Entity
-@EntityListeners(value = MyEntityListener.class)
+@EntityListeners(value =  MemberEntityListener.class)
 //@Table(name = "member", indexes = {@Index(columnList = "name")}, uniqueConstraints = {@UniqueConstraint(columnNames = "email")})
-public class Member implements Auditable {
+public class Member extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -34,10 +36,12 @@ public class Member implements Auditable {
     //@Column(name = "crtdat")
     //@Column(nullable = false)
     //@Column(updatable = false)
-    private LocalDateTime createdAt;
-
-    //@Column(insertable = false)
-    private LocalDateTime updatedAt;
+//    @CreatedDate
+//    private LocalDateTime createdAt;
+//
+//    //@Column(insertable = false)
+//    @LastModifiedDate
+//    private LocalDateTime updatedAt;
 
 //    @PrePersist
 //    public void prePersist() {

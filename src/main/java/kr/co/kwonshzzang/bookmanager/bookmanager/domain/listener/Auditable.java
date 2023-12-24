@@ -1,4 +1,4 @@
-package kr.co.kwonshzzang.bookmanager.bookmanager.domain;
+package kr.co.kwonshzzang.bookmanager.bookmanager.domain.listener;
 
 import java.time.LocalDateTime;
 
