@@ -15,7 +15,13 @@ public class Book extends BaseEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
-    private String author;
+    private String category;
+    private Long authorId;
+    private Long publisherId;
+
+    @ToString.Exclude
+    @OneToOne(mappedBy = "book")
+    private BookReviewInfo bookReviewInfo;
 
 //    @CreatedDate
 //    private LocalDateTime createdAt;
