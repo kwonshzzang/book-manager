@@ -4,6 +4,9 @@ import jakarta.persistence.*;
 import kr.co.kwonshzzang.bookmanager.bookmanager.domain.listener.MemberEntityListener;
 import lombok.*;
 
+import java.util.ArrayList;
+import java.util.List;
+
 //@Getter
 //@Setter
 //@ToString
@@ -32,6 +35,16 @@ public class Member extends BaseEntity {
 
     @Enumerated(value = EnumType.STRING)
     private Gender gender;
+
+    @OneToMany(fetch = FetchType.EAGER)
+    @JoinColumn(name="member_id", insertable = false, updatable = false)
+    @ToString.Exclude
+    private List<MemberHistory> memberHistories = new ArrayList<>();
+
+    @OneToMany(fetch = FetchType.EAGER)
+    @JoinColumn(name = "member_id")
+    @ToString.Exclude
+    private List<Review> reviews = new ArrayList<>();
 
     //@Column(name = "crtdat")
     //@Column(nullable = false)

@@ -3,6 +3,9 @@ package kr.co.kwonshzzang.bookmanager.bookmanager.domain;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Data
 @ToString(callSuper = true)
 @EqualsAndHashCode(callSuper = true)
@@ -17,11 +20,19 @@ public class Book extends BaseEntity {
     private String name;
     private String category;
     private Long authorId;
-    private Long publisherId;
+
+    @ManyToOne
+    @ToString.Exclude
+    private Publisher publisher;
 
     @ToString.Exclude
     @OneToOne(mappedBy = "book")
     private BookReviewInfo bookReviewInfo;
+
+    @OneToMany
+    @JoinColumn(name = "book_id")
+    @ToString.Exclude
+    private List<Review> reviews = new ArrayList<>();
 
 //    @CreatedDate
 //    private LocalDateTime createdAt;

@@ -15,8 +15,8 @@ class MemberTests {
 
         System.out.println(member);
 
-        Member member1 = new Member(null,"martin", "martin@fastcampus.com", Gender.MALE);
-        System.out.println(member1);
+//        Member member1 = new Member(null,"martin", "martin@fastcampus.com", Gender.MALE);
+//        System.out.println(member1);
 
 
         Member member2 = new Member("martin", "martin@fastcampus.com");

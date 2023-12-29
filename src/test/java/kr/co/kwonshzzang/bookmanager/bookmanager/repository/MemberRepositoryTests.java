@@ -3,6 +3,7 @@ package kr.co.kwonshzzang.bookmanager.bookmanager.repository;
 import jakarta.transaction.Transactional;
 import kr.co.kwonshzzang.bookmanager.bookmanager.domain.Gender;
 import kr.co.kwonshzzang.bookmanager.bookmanager.domain.Member;
+import kr.co.kwonshzzang.bookmanager.bookmanager.domain.MemberHistory;
 import org.assertj.core.util.Lists;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -290,6 +291,29 @@ class MemberRepositoryTests {
         memberRepository.save(member);
 
         memberHistoryRepository.findAll().forEach(System.out::println);
+
+    }
+
+    @Test
+    void memberRelationTest() {
+        Member member = Member.builder().name("david").email("david@fastcampus.com").gender(Gender.MALE).build();
+        memberRepository.save(member);
+        memberRepository.findAll().forEach(System.out::println);
+        System.out.println("============================================================================================================================");
+
+        member.setName("daniel");
+        memberRepository.save(member);
+
+        member.setEmail("daniel@fastcampus.com");
+        memberRepository.save(member);
+
+        System.out.println("============================================================================================================================");
+        List<MemberHistory> result = memberRepository.findByEmail("daniel@fastcampus.com").getMemberHistories();
+        result.forEach(System.out::println);
+
+        System.out.println("============================================================================================================================");
+        System.out.println("MemberHistory.getMember() : " + memberHistoryRepository.findAll().get(0).getMember());
+
 
     }
 
