@@ -23,7 +23,7 @@ class BookRepositoryTests {
 
     @Test
     void crudTest() {
-        Book book = Book.builder().name("JPA 초격차 패키지").authorId(1L).build();
+        Book book = Book.builder().name("JPA 초격차 패키지").build();
         bookRepository.save(book);
         System.out.println(bookRepository.findAll());
     }

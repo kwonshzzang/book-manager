@@ -19,7 +19,6 @@ public class Book extends BaseEntity {
     private Long id;
     private String name;
     private String category;
-    private Long authorId;
 
     @ManyToOne
     @ToString.Exclude
@@ -33,6 +32,14 @@ public class Book extends BaseEntity {
     @JoinColumn(name = "book_id")
     @ToString.Exclude
     private List<Review> reviews = new ArrayList<>();
+
+//    @ManyToMany(fetch = FetchType.EAGER)
+    @OneToMany(fetch = FetchType.EAGER)
+    @JoinColumn(name = "book_id")
+    @ToString.Exclude
+    private List<BookAndAuthor> bookAndAuthors = new ArrayList<>();
+
+
 
 //    @CreatedDate
 //    private LocalDateTime createdAt;
