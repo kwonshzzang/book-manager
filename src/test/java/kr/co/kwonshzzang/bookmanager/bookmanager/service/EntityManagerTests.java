@@ -46,6 +46,5 @@ class EntityManagerTests {
         memberRepository.save(member);
 
         System.out.println(memberRepository.findAll());
-
     }
 }
