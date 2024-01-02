@@ -75,26 +75,26 @@ class MemberRepositoryTests {
         boolean exists = memberRepository.existsById(1L);
         System.out.println("exists : " + exists);
 
-        System.out.println("============================================================================================================================");
-        memberRepository.delete(memberRepository.findById(1L).orElseThrow(RuntimeException::new));
-        memberRepository.findAll().forEach(System.out::println);
-
-        System.out.println("============================================================================================================================");
-        memberRepository.deleteById(2L);
-        memberRepository.findAll().forEach(System.out::println);
-
-        System.out.println("============================================================================================================================");
-//        memberRepository.deleteAll();
-        memberRepository.deleteAll(memberRepository.findAllById(Lists.newArrayList(2L, 3L)));
-        memberRepository.findAll().forEach(System.out::println);
-
-        System.out.println("============================================================================================================================");
-        memberRepository.deleteAllInBatch(memberRepository.findAllById(Lists.newArrayList(4L, 5L)));
-        memberRepository.findAll().forEach(System.out::println);
-
-        System.out.println("============================================================================================================================");
-        memberRepository.deleteAllInBatch();
-        memberRepository.findAll().forEach(System.out::println);
+//        System.out.println("============================================================================================================================");
+//        memberRepository.delete(memberRepository.findById(1L).orElseThrow(RuntimeException::new));
+//        memberRepository.findAll().forEach(System.out::println);
+//
+//        System.out.println("============================================================================================================================");
+//        memberRepository.deleteById(2L);
+//        memberRepository.findAll().forEach(System.out::println);
+//
+//        System.out.println("============================================================================================================================");
+////        memberRepository.deleteAll();
+//        memberRepository.deleteAll(memberRepository.findAllById(Lists.newArrayList(2L, 3L)));
+//        memberRepository.findAll().forEach(System.out::println);
+//
+//        System.out.println("============================================================================================================================");
+//        memberRepository.deleteAllInBatch(memberRepository.findAllById(Lists.newArrayList(4L, 5L)));
+//        memberRepository.findAll().forEach(System.out::println);
+//
+//        System.out.println("============================================================================================================================");
+//        memberRepository.deleteAllInBatch();
+//        memberRepository.findAll().forEach(System.out::println);
     }
 
     @Test
@@ -260,10 +260,10 @@ class MemberRepositoryTests {
     void prePersistTest() {
         System.out.println("============================================================================================================================");
 //        Member member = Member.builder().name("martin").email("martin2@fastcampus.com").createdAt(LocalDateTime.now()).updatedAt(LocalDateTime.now()).build();
-        Member member = Member.builder().name("martin").email("martin2@fastcampus.com").build();
+        Member member = Member.builder().name("martin").email("martin3@fastcampus.com").build();
         memberRepository.save(member);
-        memberRepository.save(member);
-        System.out.println(memberRepository.findByEmail("martin2@fastcampus.com"));
+//        memberRepository.save(member);
+        System.out.println(memberRepository.findByEmail("martin3@fastcampus.com"));
     }
 
     @Test
