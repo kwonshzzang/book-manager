@@ -2,6 +2,7 @@ package kr.co.kwonshzzang.bookmanager.bookmanager.domain;
 
 import jakarta.persistence.*;
 import lombok.*;
+import org.hibernate.annotations.DynamicUpdate;
 
 import java.util.ArrayList;
 import java.util.List;
