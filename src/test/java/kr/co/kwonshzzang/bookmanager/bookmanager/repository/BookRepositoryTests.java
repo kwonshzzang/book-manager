@@ -4,6 +4,7 @@ import kr.co.kwonshzzang.bookmanager.bookmanager.domain.Book;
 import kr.co.kwonshzzang.bookmanager.bookmanager.domain.Member;
 import kr.co.kwonshzzang.bookmanager.bookmanager.domain.Publisher;
 import kr.co.kwonshzzang.bookmanager.bookmanager.domain.Review;
+import org.assertj.core.util.Lists;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -38,6 +39,27 @@ class BookRepositoryTests {
         System.out.println("Review : " + member.getReviews());
         System.out.println("Book : " + member.getReviews().get(0).getBook());
         System.out.println("Publisher : " + member.getReviews().get(0).getBook().getPublisher());
+
+    }
+
+    @Test
+    void bookCascadeTest() {
+        Book book = Book.builder().name("JPA 초격차 패키지").build();
+
+        Publisher publisher = Publisher.builder().name("패스트캠퍼스").build();
+
+        book.setPublisher(publisher);
+        bookRepository.save(book);
+
+        System.out.println("books : " + bookRepository.findAll());
+        System.out.println("publishers : " + publisherRepository.findAll());
+
+        Book book1 = bookRepository.findById(1L).orElseThrow(RuntimeException::new);
+        book1.getPublisher().setName("슬로우캠퍼스");
+
+        bookRepository.save(book1);
+
+        System.out.println("publisher : " + publisherRepository.findAll());
 
     }
 

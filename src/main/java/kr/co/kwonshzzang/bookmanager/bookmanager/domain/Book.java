@@ -21,7 +21,8 @@ public class Book extends BaseEntity {
     private String name;
     private String category;
 
-    @ManyToOne
+//    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @ManyToOne(cascade = CascadeType.ALL)
     @ToString.Exclude
     private Publisher publisher;
 
