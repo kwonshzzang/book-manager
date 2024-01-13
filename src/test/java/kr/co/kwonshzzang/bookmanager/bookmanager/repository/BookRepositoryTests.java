@@ -8,6 +8,12 @@ import org.assertj.core.util.Lists;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.domain.PageRequest;
+
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -60,6 +66,57 @@ class BookRepositoryTests {
         bookRepository.save(book1);
 
         System.out.println("publisher : " + publisherRepository.findAll());
+
+       System.out.println("============================================================================================================================");
+       Book book2  = bookRepository.findById(1L).orElseThrow(RuntimeException::new);
+//       bookRepository.delete(book2);
+
+       System.out.println("books : " + bookRepository.findAll());
+       System.out.println("publishers : " + publisherRepository.findAll());
+
+        System.out.println("============================================================================================================================");
+        Book book3  = bookRepository.findById(1L).orElseThrow(RuntimeException::new);
+        book3.setPublisher(null);
+        bookRepository.save(book3);
+
+        System.out.println("books : " + bookRepository.findAll());
+        System.out.println("publishers : " + publisherRepository.findAll());
+        System.out.println("book-publisher : " + bookRepository.findById(1L).get().getPublisher());
+    }
+
+    @Test
+    void bookRemoveCascadeTest() {
+        bookRepository.deleteById(1L);
+
+        System.out.println("books : " + bookRepository.findAll());
+        System.out.println("publishers : " + publisherRepository.findAll());
+
+        bookRepository.findAll().forEach(book -> System.out.println(book.getPublisher()));
+    }
+
+    @Test
+    void softDeleted() {
+        bookRepository.findAll().forEach(System.out::println);
+        System.out.println(bookRepository.findById(3L));
+        bookRepository.findByCategoryIsNull().forEach(System.out::println);
+    }
+
+    @Test
+    void queryTest() {
+        List<Book> result = bookRepository.findByCategoryIsNullAndNameEqualsAndCreatedAtGreaterThanEqualAndUpdatedAtGreaterThanEqual("JPA 초격차 패키지",
+                LocalDateTime.now().minusDays(1L), LocalDateTime.now().minusDays(1L));
+
+        System.out.println("findByCategoryIsNullAndNameEqualsAndCreatedAtGreaterThanEqualAndUpdatedAtGreaterThanEqual : " + result);
+        System.out.println("============================================================================================================================");
+
+        System.out.println("findByNameRecent : " + bookRepository.findByNameRecent("JPA 초격차 패키지", LocalDateTime.now().minusDays(1L), LocalDateTime.now().minusDays(1L)));
+        System.out.println("============================================================================================================================");
+
+        System.out.println("findBookNameAndCategory : " + bookRepository.findBookNameAndCategory());
+        System.out.println("============================================================================================================================");
+
+        System.out.println("findBookNameAndCategory with page :" + bookRepository.findBookNameAndCategory(PageRequest.of(0, 1)).getContent());
+        System.out.println("findBookNameAndCategory with page :" + bookRepository.findBookNameAndCategory(PageRequest.of(1, 1)).getContent());
 
     }
 

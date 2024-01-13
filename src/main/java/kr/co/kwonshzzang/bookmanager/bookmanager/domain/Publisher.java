@@ -19,7 +19,7 @@ public class Publisher extends BaseEntity {
     private Long id;
     private String name;
 
-    @OneToMany(fetch = FetchType.EAGER)
+    @OneToMany(fetch = FetchType.EAGER, orphanRemoval = true)
     @JoinColumn(name = "publisher_id")
     private List<Book> books = new ArrayList<>();
 

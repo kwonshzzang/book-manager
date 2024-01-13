@@ -2,7 +2,7 @@ package kr.co.kwonshzzang.bookmanager.bookmanager.domain;
 
 import jakarta.persistence.*;
 import lombok.*;
-import org.hibernate.annotations.DynamicUpdate;
+import org.hibernate.annotations.SQLRestriction;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -14,6 +14,7 @@ import java.util.List;
 @AllArgsConstructor
 @Entity
 @Builder
+@SQLRestriction("deleted = false")
 public class Book extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -21,8 +22,8 @@ public class Book extends BaseEntity {
     private String name;
     private String category;
 
-//    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE})
+//    @ManyToOne(cascade = CascadeType.ALL)
     @ToString.Exclude
     private Publisher publisher;
 
@@ -40,6 +41,8 @@ public class Book extends BaseEntity {
     @JoinColumn(name = "book_id")
     @ToString.Exclude
     private List<BookAndAuthor> bookAndAuthors = new ArrayList<>();
+
+    private boolean deleted;
 
 
 
