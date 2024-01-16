@@ -1,6 +1,8 @@
 package kr.co.kwonshzzang.bookmanager.bookmanager.domain;
 
 import jakarta.persistence.*;
+import kr.co.kwonshzzang.bookmanager.bookmanager.domain.converter.BookStatusConverter;
+import kr.co.kwonshzzang.bookmanager.bookmanager.dto.BookStatus;
 import lombok.*;
 import org.hibernate.annotations.SQLRestriction;
 
@@ -43,6 +45,11 @@ public class Book extends BaseEntity {
     private List<BookAndAuthor> bookAndAuthors = new ArrayList<>();
 
     private boolean deleted;
+
+//    private int status; //판매상태
+
+    @Convert(converter = BookStatusConverter.class)
+    private BookStatus status;
 
 
 

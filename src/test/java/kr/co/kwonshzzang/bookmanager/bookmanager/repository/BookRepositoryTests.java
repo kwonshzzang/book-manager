@@ -4,6 +4,7 @@ import kr.co.kwonshzzang.bookmanager.bookmanager.domain.Book;
 import kr.co.kwonshzzang.bookmanager.bookmanager.domain.Member;
 import kr.co.kwonshzzang.bookmanager.bookmanager.domain.Publisher;
 import kr.co.kwonshzzang.bookmanager.bookmanager.domain.Review;
+import kr.co.kwonshzzang.bookmanager.bookmanager.dto.BookStatus;
 import org.assertj.core.util.Lists;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -118,6 +119,42 @@ class BookRepositoryTests {
         System.out.println("findBookNameAndCategory with page :" + bookRepository.findBookNameAndCategory(PageRequest.of(0, 1)).getContent());
         System.out.println("findBookNameAndCategory with page :" + bookRepository.findBookNameAndCategory(PageRequest.of(1, 1)).getContent());
 
+    }
+
+    @Test
+    void nativeQueryTest() {
+        bookRepository.findAll().forEach(System.out::println);
+        System.out.println("============================================================================================================================");
+        bookRepository.findAllCustom().forEach(System.out::println);
+
+        System.out.println("============================================================================================================================");
+        List<Book> books = bookRepository.findAll();
+
+        for(Book book : books) {
+            book.setCategory("IT전문서");
+        }
+        bookRepository.saveAll(books);
+        bookRepository.findAll().forEach(System.out::println);
+
+        System.out.println("============================================================================================================================");
+        System.out.println("affected rows : " + bookRepository.updateCategories());
+        bookRepository.findAllCustom().forEach(System.out::println);
+
+        System.out.println("============================================================================================================================");
+        System.out.println("show tables : " + bookRepository.showTables());
+
+    }
+
+    @Test
+    void converterTest() {
+        System.out.println("============================================================================================================================");
+        bookRepository.findAll().forEach(System.out::println);
+
+        System.out.println("============================================================================================================================");
+        Book book = Book.builder().name(" 또다른 IT전문서").status(new BookStatus(200)).build();
+        bookRepository.save(book);
+
+        System.out.println("find raw record : " + bookRepository.findRowRecord().values());
     }
 
     private void givenBookAndReview() {
