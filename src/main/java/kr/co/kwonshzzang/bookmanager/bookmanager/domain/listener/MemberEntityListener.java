@@ -21,6 +21,8 @@ public class MemberEntityListener {
                 .member(member)
                 .name(member.getName())
                 .email(member.getEmail())
+                .homeAddress(member.getHomeAddress())
+                .companyAddress(member.getCompanyAddress())
                 .build();
         memberHistoryRepository.save(memberHistory);
     }

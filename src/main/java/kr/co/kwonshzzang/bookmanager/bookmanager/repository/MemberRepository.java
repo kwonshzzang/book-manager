@@ -1,6 +1,7 @@
 package kr.co.kwonshzzang.bookmanager.bookmanager.repository;
 
 import kr.co.kwonshzzang.bookmanager.bookmanager.domain.Member;
+import org.springframework.data.annotation.QueryAnnotation;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
@@ -60,4 +61,6 @@ public interface MemberRepository extends JpaRepository<Member, Long> {
     @Query(value = "select * from member limit 1", nativeQuery = true)
     Map<String, Object> findRowRecord();
 
+    @Query(value = "select * from member", nativeQuery = true)
+    List<Map<String, Object>> findAllRowRecord();
 }

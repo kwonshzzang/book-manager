@@ -1,6 +1,8 @@
 package kr.co.kwonshzzang.bookmanager.bookmanager.repository;
 
+import jakarta.persistence.EntityManager;
 import jakarta.transaction.Transactional;
+import kr.co.kwonshzzang.bookmanager.bookmanager.domain.Address;
 import kr.co.kwonshzzang.bookmanager.bookmanager.domain.Gender;
 import kr.co.kwonshzzang.bookmanager.bookmanager.domain.Member;
 import kr.co.kwonshzzang.bookmanager.bookmanager.domain.MemberHistory;
@@ -22,6 +24,8 @@ class MemberRepositoryTests {
     private MemberRepository memberRepository;
     @Autowired
     private MemberHistoryRepository memberHistoryRepository;
+    @Autowired
+    private EntityManager entityManager;
 
     @Test
 //    @Transactional
@@ -313,8 +317,56 @@ class MemberRepositoryTests {
 
         System.out.println("============================================================================================================================");
         System.out.println("MemberHistory.getMember() : " + memberHistoryRepository.findAll().get(0).getMember());
+    }
 
+    @Test
+    void embedTest() {
+        memberRepository.findAll().forEach(System.out::println);
 
+        Member member = Member.builder()
+                .name("steve")
+                .email("steve@fastcampus.com")
+                .homeAddress(Address.builder()
+                        .city("서울시")
+                        .district("강남구")
+                        .detail("강남대로 364 미왕빌딩")
+                        .zipCode("062431")
+                        .build())
+                .companyAddress(Address.builder()
+                        .city("서울시")
+                        .district("성동구")
+                        .detail("성수이로 113 제광빌딩")
+                        .zipCode("04794")
+                        .build())
+                .build();
+
+        memberRepository.save(member);
+
+        Member member1 = Member.builder()
+                .name("joshua")
+                .email("joshua@fastcompus.com")
+                .build();
+
+        memberRepository.save(member1);
+
+        Member member2 = Member.builder()
+                .name("jordan")
+                .email("jordan@fastcompus.com")
+                .homeAddress(Address.builder().build())
+                .companyAddress(Address.builder().build())
+                .build();
+
+        memberRepository.save(member2);
+
+        entityManager.clear();
+
+        System.out.println("============================================================================================================================");
+        memberRepository.findAll().forEach(System.out::println);
+        System.out.println("============================================================================================================================");
+        memberHistoryRepository.findAll().forEach(System.out::println);
+
+        System.out.println("============================================================================================================================");
+        memberRepository.findAllRowRecord().forEach(m -> System.out.println(m.values()));
     }
 
 }
