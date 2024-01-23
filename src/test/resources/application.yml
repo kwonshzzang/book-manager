@@ -14,11 +14,13 @@ spring:
     generate-ddl: true
     hibernate:
       ddl-auto: create-drop
-
   h2:
     console:
       enabled: true
-
   sql:
     init:
       mode: always
+
+#logging:
+#  level:
+#    root: trace

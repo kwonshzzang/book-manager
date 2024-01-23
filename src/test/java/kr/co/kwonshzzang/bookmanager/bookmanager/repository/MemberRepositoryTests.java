@@ -15,6 +15,8 @@ import org.springframework.data.domain.*;
 import java.time.LocalDateTime;
 import java.util.List;
 
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.springframework.data.domain.ExampleMatcher.GenericPropertyMatchers.contains;
 import static org.springframework.data.domain.ExampleMatcher.GenericPropertyMatchers.endsWith;
 
@@ -367,6 +369,11 @@ class MemberRepositoryTests {
 
         System.out.println("============================================================================================================================");
         memberRepository.findAllRowRecord().forEach(m -> System.out.println(m.values()));
+
+//        assertAll(
+//                () -> assertThat(memberRepository.findById(7L).get().getHomeAddress()).isNull(),
+//                () -> assertThat(memberRepository.findById(8L).get().getHomeAddress()).isInstanceOf(Address.class)
+//        );
     }
 
 }
